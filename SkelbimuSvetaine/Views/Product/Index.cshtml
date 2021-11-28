@@ -4,7 +4,7 @@
 
     <style>
         .truncate {
-            width: 650px;
+            width: 900px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -82,17 +82,23 @@ else
                     <p class="truncate has-text-left">
                         @Html.DisplayFor(modelItem => item.Description)
                     </p>
-                    <h3 class="has-text-left has-text-weight-bold is-size-5">
-                        @Html.DisplayFor(modelItem => item.Price) $
-                    </h3>
-                    <p class="has-text-left ">
+                    <p class="has-text-right ">
                         Skelbėjas: @Html.DisplayFor(modelItem => item.User.Username)
                     </p>
-                    <p class="has-text-left ">
-                        Įkėlimo data: @Html.DisplayFor(modelItem => item.CreatedTimestamp)
-                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <h3 class="has-text-left has-text-weight-bold is-size-5">
+                                @Html.DisplayFor(modelItem => item.Price) $
+                            </h3>
+                        </div>
+                        <div class="column">
+                            <p class="has-text-right ">
+                                Įkėlimo data: @Html.DisplayFor(modelItem => item.CreatedTimestamp)
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                </div>
         </div>
 
             }
