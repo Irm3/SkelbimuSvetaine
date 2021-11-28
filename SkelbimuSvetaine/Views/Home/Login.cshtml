@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var returnUrl = ViewData["ReturnUrl"] as string;
+    var error = TempData["Error"] as string;
+}
+<h1 class="menu-label title is-size-5">Prisijungti</h1>
+@if (!string.IsNullOrEmpty(error))
+{
+    <h2 class="alert-danger" style="color:red;">@error</h2>
+}
+
+<form action="login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
+<div class="field">
+    <p class="control has-icons-left has-icons-right">
+        <input class="input" type="text" name="username" placeholder="Vartotojo vardas">
+        <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+        </span>
+    </p>
+</div>
+<div class="field">
+    <p class="control has-icons-left">
+        <input class="input" type="password" name="password" placeholder="Slaptažodis">
+        <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+        </span>
+    </p>
+</div>
+<div class="field">
+    <p class="control">
+        <button class="button is-success" type="submit">
+            Prisijungti
+        </button>
+    </p>
+</div>
+</form>

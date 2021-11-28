@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SkelbimuSvetaine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .button.disabled {
+            cursor: default;
+            pointer-events: none;
+            text-decoration: none;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigacijos Bar -->
+    <nav class="navbar is-success has-shadow" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <img src="/Images/fulllogo2.png">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Pagrindinis</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Duomenų bazė</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/Category">Kategorijos</a>
+                        <a class="navbar-item" href="/Comment">Komentarai</a>
+                        <a class="navbar-item" href="/User">Vartotojai</a>
+                        <a class="navbar-item" href="/Rating">Reitingai</a>
+                        <a class="navbar-item" href="/Product">Skelbimai</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">Pranešti apie problema</a>
+                    </div>
+                </div>
+                <a class="navbar-item" href="/Home/Secured">Admino Puslapis</a>
+            </div>
+
+            <div class="navbar-end">
+
+                <div class="navbar-item">
+                    <input class="input is-normal" type="text" maxlength="50" placeholder="Ieškokite prekės">
+                    <button class="button is-info" type="submit">Paieška</button>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a class="button is-primary"><strong>Registracija</strong></a>
+                            <a href="login" class="button is-warning">Prisijungti</a>
+                        }
+                        else
+                        {
+                            <div class="navbar-item">
+                                <a class="icon" href="#">
+                                    <img src="/Images/acc.png">
+                                </a>
+                            </div>
+                            <div class="navbar-item">
+                                <a class="navbar-item is-size-5">@User.Identity.Name</a>
+                            </div>
+                            <div class="navbar-item">
+                                <a class="button is-warning" href="#">
+                                    <strong>+ Įdėti skelbimą</strong>
+                                </a>
+                            </div>
+                            <a class="button is-warning" href="/Home/Logout"><strong>Atsijungti</strong></a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Header -->
+    <section class="hero is-fullheight">
+        <div class="columns">
+            <!-- Kairė pusė -->
+            <aside class="column is-2">
+                <div class="menu">
+                    <p class="menu-label title is-size-5">Prekių Kategorijos</p>
+                    <ul class="menu-list">
+                        <li><a href="/WebPages/kompiuterija.html">Kompiuterija</a></li>
+                        <li><a href="/WebPages/transportas.html">Transportas</a></li>
+                        <li><a href="/WebPages/technika.html">Technika</a></li>
+                        <li><a href="/WebPages/komunikacija.html">Komunikacija</a></li>
+                        <li><a href="/WebPages/drabuziai.html">Drabužiai</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Vidurys -->
+            <div class="column has-text-centered">
+
+                <section class="section">
+                    <div class="columns is-centered">
+                        <div class="column is-narrow">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Dešinė pusė -->
+            <div class="column is-2">
+                <h1 class="menu-label title is-size-5">Naujausi skelbimai</h1>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns">
+
+                <div class="column">
+                    <h1 class="is-size-2 title">Kontaktai</h1>
+                    <p>Telefonas:</p>
+                    <p>El. paštas:</p>
+                    <p>Adresas:</p>
+                    <p>Irmantas Nainys IFB-8</p>
+                </div>
+
+                <div class="column">
+                    <iframe src="https://www.youtube.com/embed/0JSBC1qc0JY">
+                    </iframe>
+                </div>
+
+                <div class="column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36705.36624281605!2d23.900294185327894!3d54.90142346546346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e72274feb24389%3A0xe6198253a31b00df!2sKauno%20technologijos%20universitetas!5e0!3m2!1slt!2slt!4v1633438015063!5m2!1slt!2slt"
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,109 @@
+﻿@model SkelbimuSvetaine.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="menu-label title is-size-5">Naujas Vartotojas</h1>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input hidden asp-for="Icon" class="form-control" value="" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Miestas" class="control-label"></label>
+                <input asp-for="Miestas" class="form-control" />
+                <span asp-validation-for="Miestas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Username" class="input" type="text" placeholder="Vartotojo vardas">
+            <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input asp-for="Email" class="input" type="email" placeholder="El. paštas">
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Password" class="input" type="password" placeholder="Slaptažodis">
+            <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Phone" class="input" type="tel" placeholder="Telefono nr.">
+            <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Miestas" class="input" type="tel" placeholder="Miestas">
+            <span class="icon is-small is-left">
+                <i class="fas fa-city"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button type="submit" class="button is-success">Pridėti</button>
+        </p>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Atgal</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

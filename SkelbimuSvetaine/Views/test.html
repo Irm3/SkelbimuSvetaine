@@ -1,0 +1,41 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+
+
+    <h1>Prisijungti</h1>
+
+    <form action="login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post"></form>
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Vartotojo vardas">
+            <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+            <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Slaptažodis">
+            <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button class="button is-success" type="submit">
+            Login
+          </button>
+        </p>
+    </div>
+    </form>
+
+</body>

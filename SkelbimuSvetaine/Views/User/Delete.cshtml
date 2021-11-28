@@ -1,0 +1,100 @@
+﻿@model SkelbimuSvetaine.Models.User
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="menu-label title is-size-5">Šalinti vartotoją</h1>
+
+<h3>Ar tikrai norite ištrinti šį vartotoją?</h3>
+<div>
+
+    <div class="field">
+        <p class="control has-icons-left">
+            <input disabled value="@Html.DisplayFor(model => model.Username)" class="input" type="text">
+            <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input disabled value="@Html.DisplayFor(model => model.Email)" class="input" type="email" placeholder="El. paštas">
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input disabled value="@Html.DisplayFor(model => model.Password)" class="input" type="password" placeholder="Slaptažodis">
+            <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input disabled value="@Html.DisplayFor(model => model.Phone)" class="input" type="tel" placeholder="Telefono nr.">
+            <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input disabled value="@Html.DisplayFor(model => model.Miestas)" class="input" type="tel" placeholder="Miestas">
+            <span class="icon is-small is-left">
+                <i class="fas fa-city"></i>
+            </span>
+        </p>
+    </div>
+
+
+
+    @*<hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Icon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Icon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Miestas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Miestas)
+        </dd>
+    </dl>*@
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Naikinti" class="button is-danger" /> 
+        <a class="button is-warning" asp-action="Index">Atgal</a>
+    </form>
+</div>
