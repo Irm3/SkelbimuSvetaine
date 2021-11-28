@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkelbimuSvetaine.Models;
 
 namespace SkelbimuSvetaine.Migrations
 {
     [DbContext(typeof(ld1_gynimasContext))]
-    partial class ld1_gynimasContextModelSnapshot : ModelSnapshot
+    [Migration("20211128213059_MyFirstMigration")]
+    partial class MyFirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +76,6 @@ namespace SkelbimuSvetaine.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int(11)")
                         .HasColumnName("Category_id");
-
-                    b.Property<DateTime>("CreatedTimestamp")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .IsRequired()

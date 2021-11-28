@@ -1,75 +1,124 @@
-﻿@model IEnumerable<SkelbimuSvetaine.Models.Product>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model PaginatedList<SkelbimuSvetaine.Models.Product>
+
+    <style>
+        .truncate {
+            width: 650px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+<session-name name="@User.Identity.Name">Session["keyword"] -> @HttpContextAccessor.HttpContext.Session.GetInt32("keyword")</session-name>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Prekės</h1>
+<h1 class="menu-label title is-size-5">Skelbimai</h1>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Prekė
-            </th>
-            <th>
-                Aprašymas
-            </th>
-            <th>
-                Kaina
-            </th>
-            <th>
-                Nuotrauka
-            </th>
-            <th>
-                Kategorija
-            </th>
-            <th>
-                Vartotojas
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <div class="box">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Image)*@
-                @{ 
-                    var base64 = Convert.ToBase64String(item.Image);
-                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                }
-                <img src ='@imgsrc' style="max-width:100px; max-height:100px"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Username)
-            </td>
-            @*<td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-        </td>*@
-        <td>
-            <a asp-action="Details" asp-route-id="@item.Id">Detaliau</a>
-        </td>
-        </tr>
+@{
+    var allDisabled = "is-success";
+    if (@ViewData["CurrentFilter"] as string == null)
+    {
+        allDisabled = "disabled";
+    }
 }
-    </tbody>
-</table>
+
+<form asp-action="Index" method="get">
+    <div class="level">
+        <div class="level-item">
+            <div class="field has-addons">
+                <p class="control">
+                    <input placeholder="Ieškoti skelbimo" type="text" name="SearchString" class="input" value="@ViewData["CurrentFilter"]" />
+                </p>
+                <p class="control">
+                    <button class="button is-success" asp-action="Index" type="submit">
+                        Paieška
+                    </button>
+                    <a class="button @allDisabled" asp-action="Index">Atgal į sąrašą</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@if (Model == null)
+{
+
+        <th>
+            <h1 class="menu-label title is-size-5">Nėra skelbimų</h1>
+        </th>
+}
+
+else   
+    @foreach (var item in Model)
+    {
+
+        <div class="box">
+            <div class="columns">
+                <div class="column is-2">
+                    @{
+                        var imgsrc = "";
+                        if (item.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.Image);
+                            imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        }
+                        else
+                            imgsrc = string.Format("/Images/acc.png");
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id"><img src='@imgsrc' style="max-width:100px; max-height:100px; border:2px;" /></a>
+                </div>
+
+                <div class="column">
+                    <h1 class="has-text-left has-text-weight-bold is-size-4">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h1>
+                    <p class="truncate has-text-left">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                    <h3 class="has-text-left has-text-weight-bold is-size-5">
+                        @Html.DisplayFor(modelItem => item.Price) $
+                    </h3>
+                    <p class="has-text-left ">
+                        Skelbėjas: @Html.DisplayFor(modelItem => item.User.Username)
+                    </p>
+                    <p class="has-text-left ">
+                        Įkėlimo data: @Html.DisplayFor(modelItem => item.CreatedTimestamp)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+            }
+
+
+
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "is-success";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "is-success";
+            }
+
+            @if (Model != null)
+            {
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="button @prevDisabled">
+                    Ankstesnis
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="button @nextDisabled ">
+                    Kitas
+                </a>
+            }
+

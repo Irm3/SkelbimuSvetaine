@@ -9,8 +9,8 @@ using SkelbimuSvetaine.Models;
 namespace SkelbimuSvetaine.Migrations
 {
     [DbContext(typeof(ld1_gynimasContext))]
-    [Migration("20211118204923_DBInit")]
-    partial class DBInit
+    [Migration("20211128213230_AddDateStampProduct")]
+    partial class AddDateStampProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,9 @@ namespace SkelbimuSvetaine.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int(11)")
                         .HasColumnName("Category_id");
+
+                    b.Property<DateTime>("CreatedTimestamp")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .IsRequired()
