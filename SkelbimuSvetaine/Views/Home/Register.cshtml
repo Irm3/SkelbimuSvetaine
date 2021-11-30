@@ -1,0 +1,75 @@
+﻿@model SkelbimuSvetaine.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+    var error = TempData["Error"] as string;
+}
+
+<h1 class="menu-label title is-size-5">Registracija</h1>
+<div class="columns is-centered">
+    <form asp-action="Register">
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <h2 class="alert-danger" style="color:red;">@error</h2>
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input asp-for="Username" class="input" type="text" placeholder="Vartotojo vardas">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input asp-for="Email" class="input" type="email" placeholder="El. paštas">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input asp-for="Password" class="input" type="password" placeholder="Slaptažodis">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input asp-for="Phone" class="input" type="tel" placeholder="Telefono nr.">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input asp-for="Miestas" class="input" type="tel" placeholder="Miestas">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-city"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control">
+                <button type="submit" class="button is-success">Registruotis</button>
+            </p>
+        </div>
+        <div>
+            <a asp-action="Index">Atgal</a>
+        </div>
+    </form>
+
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</div>

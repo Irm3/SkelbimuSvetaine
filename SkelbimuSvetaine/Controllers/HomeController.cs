@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SkelbimuSvetaine.Security;
 
 namespace SkelbimuSvetaine.Controllers
 {
@@ -52,9 +53,13 @@ namespace SkelbimuSvetaine.Controllers
         public async Task<IActionResult> Validate(string username, string password, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            foreach (User a in _context.Users) // laikina, nes loopins per visus user
+
+            var a = _context.Users.SingleOrDefault(x => x.Username.Equals(username));
+
+            if (a != null)
             {
-                if (username == a.Username && password == a.Password)
+                bool validate = Hashing.Validate(password, a.Password);
+                if (validate == true)
                 {
                     var claims = new List<Claim>();
                     claims.Add(new Claim("username", username));
@@ -69,8 +74,50 @@ namespace SkelbimuSvetaine.Controllers
                     return Redirect(returnUrl);
                 }
             }
-            TempData["Error"] = "Klaida. Vartotojo vardas arba slaptažodis neteisingas";
+            
+            TempData["Error"] = "Klaida. Vartotojo vardas arba slaptažodis neteisingas.";
             return View("login");
+        }
+
+        [HttpPost("register")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("Username, Password, Phone, Email, Icon, Miestas")] User user)
+        {         
+            try
+            {
+                if (_context.Users.Any(x => x.Username == user.Username))
+                {
+                    TempData["Error"] = "Klaida. Toks vartotojo vardas jau naudojamas.";
+                    return View("register");
+                }
+
+                if (_context.Users.Any(x => x.Email == user.Email))
+                {
+                    TempData["Error"] = "Klaida. Toks el. paštas jau naudojamas.";
+                    return View("register");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    user.Password = Hashing.Hash(user.Password);
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Nepavyko išsaugoti pakeitimų, jei vis dar kyla problema susisiekite su administratoriumi");
+            }
+            return View(User);
+
+        }
+
+        [HttpGet("register")]
+        public ActionResult Register()
+        {
+            User user = new User();
+            return View(user);
         }
 
         [Authorize]

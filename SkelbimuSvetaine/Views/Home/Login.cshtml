@@ -6,13 +6,14 @@
     var error = TempData["Error"] as string;
 }
 <h1 class="menu-label title is-size-5">Prisijungti</h1>
-@if (!string.IsNullOrEmpty(error))
-{
-    <h2 class="alert-danger" style="color:red;">@error</h2>
-}
-
 <div class="columns is-centered">
-    <div class="box">
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <h2 class="alert-danger" style="color:red;">@error</h2>
+        }
+
+
+
         <form action="login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
             <div class="field">
                 <p class="control has-icons-left has-icons-right">
@@ -41,5 +42,4 @@
                 </p>
             </div>
         </form>
-    </div>
 </div>

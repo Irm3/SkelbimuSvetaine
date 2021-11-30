@@ -7,17 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SkelbimuSvetaine.Security;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace SkelbimuSvetaine.Controllers
-
 {
-    [Authorize]
+
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly ld1_gynimasContext _context;
+        private readonly string salt = BCryptNet.GenerateSalt(13);
         public UserController(ld1_gynimasContext context)
         {
-            _context = context;
+            _context = context;          
         }
 
 
@@ -71,10 +74,13 @@ namespace SkelbimuSvetaine.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Username, Password, Phone, Email, Icon, Miestas")] User user)        
         {
+            if(_context.Users.Any(x => x.Username == user.Username))
+                throw new Exception("Vardas '" + user.Username + "' jau užimtas");
             try
             {
                 if(ModelState.IsValid)
                 {
+                    user.Password = BCryptNet.HashPassword(user.Password, salt);
                     _context.Add(user);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
