@@ -64,8 +64,8 @@ namespace SkelbimuSvetaine.Controllers
                     var claims = new List<Claim>();
                     claims.Add(new Claim("username", username));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
+                    claims.Add(new Claim(ClaimTypes.Role, a.Role));
                     claims.Add(new Claim(ClaimTypes.Name, username));
-                    //claims.Add(new Claim(ClaimTypes.Role, "Admin"));
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);
@@ -81,7 +81,7 @@ namespace SkelbimuSvetaine.Controllers
 
         [HttpPost("register")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Username, Password, Phone, Email, Icon, Miestas")] User user)
+        public async Task<IActionResult> Register([Bind("Username, Password, ConfirmPassword, Phone, Email, Icon, Miestas, Role")] User user)
         {         
             try
             {
@@ -99,6 +99,7 @@ namespace SkelbimuSvetaine.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    user.Role = "user";
                     user.Password = Hashing.Hash(user.Password);
                     _context.Add(user);
                     await _context.SaveChangesAsync();

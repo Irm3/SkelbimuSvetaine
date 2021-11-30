@@ -1,7 +1,6 @@
 ﻿@model SkelbimuSvetaine.Models.User
 
 @{
-    ViewData["Title"] = "Register";
     var error = TempData["Error"] as string;
 }
 
@@ -13,6 +12,7 @@
             <h2 class="alert-danger" style="color:red;">@error</h2>
         }
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="field">
             <p class="control has-icons-left">
                 <input asp-for="Username" class="input" type="text" placeholder="Vartotojo vardas">
@@ -20,6 +20,7 @@
                     <i class="fas fa-user"></i>
                 </span>
             </p>
+            <span asp-validation-for="Username" class="text-danger"></span>
         </div>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
@@ -31,6 +32,7 @@
                     <i class="fas fa-check"></i>
                 </span>
             </p>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="field">
             <p class="control has-icons-left">
@@ -39,22 +41,34 @@
                     <i class="fas fa-lock"></i>
                 </span>
             </p>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input asp-for="Phone" class="input" type="tel" placeholder="Telefono nr.">
+                <input asp-for="ConfirmPassword" class="input" type="password" placeholder="Patvirtinkite slaptažodį">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input asp-for="Phone" class="input" type="text" placeholder="Telefono nr.">
                 <span class="icon is-small is-left">
                     <i class="fas fa-phone"></i>
                 </span>
             </p>
+            <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input asp-for="Miestas" class="input" type="tel" placeholder="Miestas">
+                <input asp-for="Miestas" class="input" type="text" placeholder="Miestas">
                 <span class="icon is-small is-left">
                     <i class="fas fa-city"></i>
                 </span>
             </p>
+            <span asp-validation-for="Miestas" class="text-danger"></span>
         </div>
         <div class="field">
             <p class="control">
@@ -62,7 +76,7 @@
             </p>
         </div>
         <div>
-            <a asp-action="Index">Atgal</a>
+            <a class="button is-success" asp-action="Index">Atgal</a>
         </div>
     </form>
 

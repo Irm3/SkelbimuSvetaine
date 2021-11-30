@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkelbimuSvetaine.Models;
 
 namespace SkelbimuSvetaine.Migrations
 {
     [DbContext(typeof(ld1_gynimasContext))]
-    partial class ld1_gynimasContextModelSnapshot : ModelSnapshot
+    [Migration("20211130200412_UserRolesDB")]
+    partial class UserRolesDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

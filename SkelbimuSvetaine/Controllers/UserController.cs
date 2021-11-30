@@ -13,7 +13,7 @@ using BCryptNet = BCrypt.Net.BCrypt;
 namespace SkelbimuSvetaine.Controllers
 {
 
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly ld1_gynimasContext _context;
@@ -72,7 +72,7 @@ namespace SkelbimuSvetaine.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Username, Password, Phone, Email, Icon, Miestas")] User user)        
+        public async Task<IActionResult> Create([Bind("Username, Password, ConfirmPassword, Phone, Email, Icon, Miestas, Role")] User user)        
         {
             if(_context.Users.Any(x => x.Username == user.Username))
                 throw new Exception("Vardas '" + user.Username + "' jau užimtas");
