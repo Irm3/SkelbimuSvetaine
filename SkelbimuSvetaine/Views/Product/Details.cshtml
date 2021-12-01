@@ -4,51 +4,35 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="menu-label title is-size-4">Skelbimas</h1>
+<hr />
+<div class="content">
+    <h2 class="menu-label title is-size-5">@Html.DisplayFor(model => model.Category.Name) / @Html.DisplayFor(model => model.Name)</h2>
 
-<div>
-    <h4>Product</h4>
+        @{ 
+            var imgsrc = "";
+            if (Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(Model.Image);
+                imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+            }
+            else
+            {
+                imgsrc = string.Format("/Images/acc.png");
+            }
+        }
+        <img src='@imgsrc' style="max-width:300px; max-height:300px; border:2px;" />
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-    </dl>
+    <h3 class="menu-label title is-size-6">Skelbimo aprašymas</h3>
+    <p>@Html.DisplayFor(model => model.Description)</p>
+    <hr />
+    <p class="has-text-left">Kaina: <strong>@Html.DisplayFor(model => model.Price) $ </strong></p>
+    <hr />
+    <h3 class="menu-label title is-size-6 has-text-left">Kontaktai</h3>
+    <p class="has-text-left">Skelbimo autorius: @Html.DisplayFor(model => model.User.Username)</p>
+    <p class="has-text-left">Telefonas: @Html.DisplayFor(model => model.User.Phone)</p>
+    <p class="has-text-left">El. paštas: @Html.DisplayFor(model => model.User.Email)</p>
 </div>
-<div>
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
-    <a asp-action="Index">Back to List</a>
+<div class="has-text-left">
+    <a class="button is-warning" asp-action="Index">Atgal</a>
 </div>

@@ -26,7 +26,7 @@ namespace SkelbimuSvetaine.Controllers
                 return NotFound();
             }
 
-            var prekes = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            var prekes = await _context.Products.Include(m => m.User).Include(m => m.Category).FirstOrDefaultAsync(m => m.Id == id);
             if (prekes == null)
             {
                 return NotFound();
