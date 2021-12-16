@@ -108,9 +108,9 @@ namespace SkelbimuSvetaine.Models
                     .HasColumnName("description");
 
                 entity.Property(e => e.Image)
-                    .IsRequired()
                     .HasColumnType("blob")
-                    .HasColumnName("image");
+                    .HasColumnName("image_path")
+                    .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

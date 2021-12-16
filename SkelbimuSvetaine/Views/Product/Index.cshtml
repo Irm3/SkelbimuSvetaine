@@ -2,19 +2,29 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @model PaginatedList<SkelbimuSvetaine.Models.Product>
 
-    <style>
-        .truncate {
-            width: 900px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+<style>
+    .truncate {
+        width: 900px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 
-<session-name name="@User.Identity.Name">Session["keyword"] -> @HttpContextAccessor.HttpContext.Session.GetInt32("keyword")</session-name>
+@*<session-name name="@User.Identity.Name">Session["keyword"] -> @HttpContextAccessor.HttpContext.Session.GetInt32("keyword")</session-name>*@
 
 @{
     ViewData["Title"] = "Index";
+}
+
+@{  
+    string role = "";
+    if (User.Identity.Name != null)
+    {
+        SkelbimuSvetaine.Models.ld1_gynimasContext db = new ld1_gynimasContext();
+        role = db.Users.FirstOrDefault(x => x.Username == User.Identity.Name).Role;
+    }
+
 }
 
 <h1 class="menu-label title is-size-5">Skelbimai</h1>
@@ -39,6 +49,10 @@
                         Paieška
                     </button>
                     <a class="button @allDisabled" asp-action="Index">Atgal į sąrašą</a>
+                    @if (role != "")
+                    {
+                        <a class="button is-success" asp-action="Create">+ Naujas Skelbimas</a>
+                    }
                 </p>
             </div>
         </div>
@@ -46,19 +60,16 @@
 </form>
 
 
-
 @if (Model == null)
 {
-
-        <th>
-            <h1 class="menu-label title is-size-5">Nėra skelbimų</h1>
-        </th>
+    <th>
+        <h1 class="menu-label title is-size-5">Nėra skelbimų</h1>
+    </th>
 }
 
-else   
+else
     @foreach (var item in Model)
     {
-
         <div class="box">
             <div class="columns">
                 <div class="column is-2">
@@ -70,9 +81,9 @@ else
                             imgsrc = string.Format("data:image/gif;base64,{0}", base64);
                         }
                         else
-                            imgsrc = string.Format("/Images/acc.png");
+                            imgsrc = string.Format("/Images/notfound.jpg");
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id"><img src='@imgsrc' style="max-width:100px; max-height:100px; border:2px;" /></a>
+                    <a asp-route-id="@item.Id" asp-action="Details"><img src='@imgsrc' style="max-width:100px; max-height:100px; border:2px;" /></a>
                 </div>
 
                 <div class="column">
@@ -96,35 +107,42 @@ else
                                 Įkėlimo data: @Html.DisplayFor(modelItem => item.CreatedTimestamp)
                             </p>
                         </div>
+                        @if (role == "admin" || User.Identity.Name == item.User.Username)
+                        {
+                        <div class="column">
+                            <a class="button is-danger" asp-action="Delete" asp-route-id="@item.Id">Šalinti</a>
+                            <a class="button is-danger" asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a>
+                        </div>
+                        }
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
 
-            }
+    }
 
 
 
-            @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "is-success";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "is-success";
-            }
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "is-success";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "is-success";
+}
 
-            @if (Model != null)
-            {
-                <a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex - 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="button @prevDisabled">
-                    Ankstesnis
-                </a>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex + 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="button @nextDisabled ">
-                    Kitas
-                </a>
-            }
+@if (Model != null)
+{
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="button @prevDisabled">
+        Ankstesnis
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="button @nextDisabled ">
+        Kitas
+    </a>
+}
 

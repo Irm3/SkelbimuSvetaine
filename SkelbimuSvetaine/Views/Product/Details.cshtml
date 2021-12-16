@@ -9,19 +9,18 @@
 <div class="content">
     <h2 class="menu-label title is-size-5">@Html.DisplayFor(model => model.Category.Name) / @Html.DisplayFor(model => model.Name)</h2>
 
-        @{ 
-            var imgsrc = "";
-            if (Model.Image != null)
-            {
-                var base64 = Convert.ToBase64String(Model.Image);
-                imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-            }
-            else
-            {
-                imgsrc = string.Format("/Images/acc.png");
-            }
+
+    @{
+        var imgsrc = "";
+        if (Model.Image != null)
+        {
+            var base64 = Convert.ToBase64String(Model.Image);
+            imgsrc = string.Format("data:image/gif;base64,{0}", base64);
         }
-        <img src='@imgsrc' style="max-width:300px; max-height:300px; border:2px;" />
+        else
+            imgsrc = string.Format("/Images/notfound.jpg");
+    }
+    <img src='@imgsrc' style="max-width:200px; max-height:200px; border:2px;" />
     <hr />
     <h3 class="menu-label title is-size-6">Skelbimo aprašymas</h3>
     <p>@Html.DisplayFor(model => model.Description)</p>
@@ -32,7 +31,46 @@
     <p class="has-text-left">Skelbimo autorius: @Html.DisplayFor(model => model.User.Username)</p>
     <p class="has-text-left">Telefonas: @Html.DisplayFor(model => model.User.Phone)</p>
     <p class="has-text-left">El. paštas: @Html.DisplayFor(model => model.User.Email)</p>
+    <p class="has-text-left">Miestas: @Html.DisplayFor(model => model.User.Miestas)</p>
 </div>
 <div class="has-text-left">
     <a class="button is-warning" asp-action="Index">Atgal</a>
+</div>
+<div class="container has-text-centered">
+    <h1 class="menu-label title is-size-4">Komentarai</h1>
+</div>
+<hr />
+<div class="container is-centered">
+    @foreach (var item in Model.Comments.ToList())
+    {
+        <div class="box is-centered" style="background-color:green; color: black;">
+            <h1 class="is-size-5">@item.User.Username pakomentavo:</h1>
+            <p class="is-size-6"> @item.Message</p>
+        </div>
+        <hr />
+    }
+</div>
+
+<div class="container has-text-centered">
+    <h1 class="menu-label title is-size-4">Reitingai</h1>
+</div>
+<hr />
+@{
+    double a = 0;
+    int kiekis = 0;
+}
+@foreach (var item in Model.Ratings.ToList())
+{
+    <div class="container has-text-centered" style="background-color:limegreen; color: black;">
+        <h1 class="is-size-5">@item.User.Username - @item.Value stars.</h1>
+    </div>
+    <hr />
+    a += item.Value;
+    kiekis++;
+}
+@{
+    a = a / kiekis;
+}
+<div class="container has-text-centered">
+    <h1 class="is-size-5">Reitingo vidurkis - @a</h1>
 </div>

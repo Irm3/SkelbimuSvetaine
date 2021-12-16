@@ -14,6 +14,7 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
+                <span asp-validation-for="Username" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -25,6 +26,7 @@
                 <span class="icon is-small is-right">
                     <i class="fas fa-check"></i>
                 </span>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -33,6 +35,7 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -41,6 +44,7 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-phone"></i>
                 </span>
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -49,19 +53,16 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-city"></i>
                 </span>
+                <span asp-validation-for="Miestas" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
             <p class="control">
                 <button type="submit" class="button is-success">Pridėti</button>
+                <a asp-action="Index">Atgal</a>
             </p>
         </div>
     </form>
-
-
-    <div>
-        <a asp-action="Index">Atgal</a>
-    </div>
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

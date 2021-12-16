@@ -3,7 +3,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @model PaginatedList<SkelbimuSvetaine.Models.User>
 
-<session-name name="@User.Identity.Name">Session["keyword"] -> @HttpContextAccessor.HttpContext.Session.GetInt32("keyword")</session-name>
+@*<session-name name="@User.Identity.Name">Session["keyword"] -> @HttpContextAccessor.HttpContext.Session.GetInt32("keyword")</session-name>*@
 
 @{
     ViewData["Title"] = "Index";
@@ -108,7 +108,6 @@
                             </td>
                             <td>
                                 <a class="button is-success" asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a>
-                                <a class="button is-success" asp-action="Details" asp-route-id="@item.Id">Išsami informacija</a>
                                 <a class="button is-danger" asp-action="Delete" asp-route-id="@item.Id">Šalinti</a>
                             </td>
                         </tr>

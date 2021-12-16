@@ -1,0 +1,87 @@
+﻿@model SkelbimuSvetaine.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="menu-label title is-size-5">Naujas Skelbimas</h1>
+<hr />
+
+
+<form asp-action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="field">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="field">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="field">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Name" class="input" type="text" placeholder="Prekė">
+            <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+            @*<span asp-validation-for="Name" class="text-danger"></span>*@
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <textarea asp-for="Description" class="textarea" type="text" placeholder="Aprašymas"></textarea>
+            @*<span asp-validation-for="Description" class="text-danger"></span>*@
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input asp-for="Price" class="input" type="text" placeholder="Kaina">
+            @*<span asp-validation-for="Price" class="text-danger"></span>*@
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            @{
+                SkelbimuSvetaine.Models.ld1_gynimasContext db = new ld1_gynimasContext();
+                string id = db.Users.FirstOrDefault(x => x.Username == User.Identity.Name).Id.ToString();
+
+            }
+            <label class="label">Pardavėjas</label>
+            <select asp-for="UserId" class="select" asp-items="ViewBag.User">
+                <option value="@id">@User.Identity.Name</option>
+            </select>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <label class="label">Kategorija</label>
+            <select asp-for="CategoryId" class="select" asp-items="ViewBag.Category">
+                @{
+                    List<SkelbimuSvetaine.Models.Category> KategorijuList = db.Categories.ToList();
+                    <option value="" disabled hidden selected>Rinktis kategorija</option>
+                    foreach (SkelbimuSvetaine.Models.Category c in KategorijuList)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                }
+            </select>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <input asp-for="CreatedTimestamp" class="form-control" value="@DateTime.Now" />
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button type="submit" class="button is-success">Pridėti</button>
+            <a asp-action="Index">Atgal</a>
+        </p>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
