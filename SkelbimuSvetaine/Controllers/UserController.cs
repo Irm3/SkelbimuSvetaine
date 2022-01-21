@@ -142,7 +142,7 @@ namespace SkelbimuSvetaine.Controllers
             if (await TryUpdateModelAsync<User>(
                 studentToUpdate,
                 "",
-                s => s.Username, s => s.Password, s => s.Email, s => s.Phone, s => s.Miestas))
+                s => s.Username, s => s.Password, s=> s.ConfirmPassword, s => s.Email, s => s.Phone, s => s.Miestas))
             {
                 try
                 {

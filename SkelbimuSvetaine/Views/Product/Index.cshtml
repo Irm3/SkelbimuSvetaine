@@ -17,7 +17,7 @@
     ViewData["Title"] = "Index";
 }
 
-@{  
+@{
     string role = "";
     if (User.Identity.Name != null)
     {
@@ -107,17 +107,18 @@ else
                                 Įkėlimo data: @Html.DisplayFor(modelItem => item.CreatedTimestamp)
                             </p>
                         </div>
-                        @if (role == "admin" || User.Identity.Name == item.User.Username)
-                        {
-                        <div class="column">
-                            <a class="button is-danger" asp-action="Delete" asp-route-id="@item.Id">Šalinti</a>
-                            <a class="button is-danger" asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a>
-                        </div>
-                        }
+
                     </div>
                 </div>
             </div>
         </div>
+        @if (role == "admin" || User.Identity.Name == item.User.Username)
+        {
+            <div class="column">
+                <a class="button is-danger" asp-action="Delete" asp-route-id="@item.Id">Šalinti</a>
+                <a class="button is-info" asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a>
+            </div>
+        }
 
     }
 

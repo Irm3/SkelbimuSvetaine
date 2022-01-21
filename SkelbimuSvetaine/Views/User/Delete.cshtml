@@ -7,52 +7,38 @@
 <h1 class="menu-label title is-size-5">Šalinti vartotoją</h1>
 
 <h3>Ar tikrai norite ištrinti šį vartotoją?</h3>
-<div>
+<div class="box">
 
     <div class="field">
-        <p class="control has-icons-left">
-            <input disabled value="@Html.DisplayFor(model => model.Username)" class="input" type="text">
-            <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-            </span>
-        </p>
+        <p>Vartotojas: </p>
+        <p>@Html.DisplayFor(model => model.Username)</p>
     </div>
+
     <div class="field">
-        <p class="control has-icons-left">
-            <input disabled value="@Html.DisplayFor(model => model.Email)" class="input" type="email" placeholder="El. paštas">
-            <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-            </span>
-        </p>
+        <p>El. paštas: </p>
+        <p>@Html.DisplayFor(model => model.Email)</p>
     </div>
+
     <div class="field">
-        <p class="control has-icons-left">
-            <input disabled value="@Html.DisplayFor(model => model.Password)" class="input" type="password" placeholder="Slaptažodis">
-            <span class="icon is-small is-left">
-                <i class="fas fa-lock"></i>
-            </span>
-        </p>
+        <p>Slaptažodis: </p>
+        <input type="password" disabled value="@Html.DisplayFor(model => model.Password)" />
     </div>
+
     <div class="field">
-        <p class="control has-icons-left">
-            <input disabled value="@Html.DisplayFor(model => model.Phone)" class="input" type="tel" placeholder="Telefono nr.">
-            <span class="icon is-small is-left">
-                <i class="fas fa-phone"></i>
-            </span>
-        </p>
+        <p>Telefono numeris: </p>
+        <p>@Html.DisplayFor(model => model.Phone)</p>
     </div>
+
     <div class="field">
-        <p class="control has-icons-left">
-            <input disabled value="@Html.DisplayFor(model => model.Miestas)" class="input" type="tel" placeholder="Miestas">
-            <span class="icon is-small is-left">
-                <i class="fas fa-city"></i>
-            </span>
-        </p>
+        <p>Miestas: </p>
+        <p>@Html.DisplayFor(model => model.Miestas)</p>
     </div>
+
+</div>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Naikinti" class="button is-danger" /> 
-        <a class="button is-warning" asp-action="Index">Atgal</a>
+        <a class="button is-info" asp-action="Index">Atgal</a>
     </form>
-</div>
+

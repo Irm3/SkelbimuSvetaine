@@ -7,14 +7,13 @@
 <h1 class="menu-label title is-size-5">Naujas Vartotojas</h1>
 <div class="columns is-centered">
     <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="field">
             <p class="control has-icons-left">
                 <input asp-for="Username" class="input" type="text" placeholder="Vartotojo vardas">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
-                <span asp-validation-for="Username" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -26,7 +25,6 @@
                 <span class="icon is-small is-right">
                     <i class="fas fa-check"></i>
                 </span>
-                <span asp-validation-for="Email" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -35,7 +33,6 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
-                <span asp-validation-for="Password" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -44,7 +41,6 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-phone"></i>
                 </span>
-                <span asp-validation-for="Phone" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
@@ -53,15 +49,14 @@
                 <span class="icon is-small is-left">
                     <i class="fas fa-city"></i>
                 </span>
-                <span asp-validation-for="Miestas" class="text-danger"></span>
             </p>
         </div>
         <div class="field">
             <p class="control">
                 <button type="submit" class="button is-success">Pridėti</button>
-                <a asp-action="Index">Atgal</a>
             </p>
         </div>
+        <a class="button is-info" asp-action="Index">Atgal</a>
     </form>
 
     @section Scripts {
